@@ -190,6 +190,13 @@ module.exports =
     # calculate the actual rendered width of the string after word and character spacing
     renderedWidth = options.textWidth + (wordSpacing * (options.wordCount - 1)) + (characterSpacing * (text.length - 1))
 
+		if options.bgColor
+			textWidth = @widthOfString(text.replace(/\s+$/, ''), options);
+ 			@save();
+ 			@rect(@x, @y, textWidth, @currentLineHeight());
+ 			@fill(options.bgColor)
+ 			@restore();
+
     # create link annotations if the link option is given
     if options.link?
       @link x, y, renderedWidth, @currentLineHeight(), options.link
